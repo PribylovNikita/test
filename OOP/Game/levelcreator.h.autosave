@@ -1,0 +1,15 @@
+#ifndef LEVELCREATOR_H
+#define LEVELCREATOR_H
+
+#include "Grid/grid.h"
+#include "Objects/itemfactory.h"
+
+class LevelCreator
+{
+public:
+    LevelCreator();
+    bool CreateDefaultLevel1();
+private:
+};
+
+#endif // LEVELCREATOR_H

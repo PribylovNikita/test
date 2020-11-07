@@ -1,0 +1,42 @@
+#include "Game/levelcreator.h"
+
+LevelCreator::LevelCreator()
+{
+    
+}
+
+bool LevelCreator::CreateDefaultLevel1()
+{
+    Grid* grid = Grid::GetInstance();
+    if (grid->Width() != gridWidth || grid->Height() != gridHeight) {
+        return false;
+    }
+    
+    ArtifactFactory artifactFactory;
+    KeyFactory keyFactory;
+    LifeFactory lifeFactory;
+    
+    int level[gridWidth][gridHeight] = {{2, 1, 1, 1, 0, 1, 1, 1, 0, 1},
+                                        {1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
+                                        {0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
+                                        {1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
+                                        {1, 1, 1, 1, 1, 1, 1, 0, 1, 0},
+                                        {1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
+                                        {1, 1, 1, 1, 1, 1, 1, 0, 0, 1},
+                                        {1, 1, 1, 1, 1, 1, 1, 0, 0, 0},
+                                        {1, 1, 1, 1, 1, 1, 1, 4, 1, 1},
+                                        {1, 1, 1, 1, 1, 1, 1, 0, 1, 3}};
+    
+    for (int y = 0; y < grid->Height(); y++) {
+        for (int x = 0; x < grid->Width(); x++) {
+            grid->Array(y,x).SetType(static_cast<TileType>(level[y][x]));
+        }
+    }
+    
+    Player player(0,0);
+    
+    grid->Array(7,3).SetItem(artifactFactory.CreateItem());
+    grid->Array(6,9).SetItem(keyFactory.CreateItem());
+    grid->Array(8,9).SetItem(lifeFactory.CreateItem());
+    return true;
+}
